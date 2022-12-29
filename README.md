@@ -5,7 +5,7 @@ I thought it might be better to place these tiny projects I do for fun or for pr
 
 So far, I have: <br>
 -a tic tac toe game <br>
--a shell for a calculator app <br>
+-a basic calculator app <br>
 -???? <br>
 -profit(???)<br>
 
