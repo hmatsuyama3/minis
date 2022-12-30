@@ -119,7 +119,9 @@ public class Calculator implements ActionListener{
         }
         //functionality for decimal button
         if(e.getSource()==decButton){
-            textfield.setText(textfield.getText().concat("."));
+            if(!textfield.getText().contains(".")){ //check if a decimal is already in the text field. 
+                textfield.setText(textfield.getText().concat("."));
+            }
         }
         //functionality for operands!
         if(e.getSource()==addButton){
@@ -152,24 +154,26 @@ public class Calculator implements ActionListener{
 
         //equals button
         if(e.getSource()==equButton){
-            num2 = Double.parseDouble(textfield.getText());
 
-            switch (operator){
-                case'+':
-                    result = num1+num2;
-                    break;
-                case'-':
-                    result = num1-num2;
-                    break;
-                case'*':
-                    result = num1*num2;
-                    break;
-                case'/':
-                    result = num1/num2;
-                    break;
-            }
-            textfield.setText(String.valueOf(result));
-            num1=result;
+            equals(num1, num2, result, operator);
+//            num2 = Double.parseDouble(textfield.getText());
+//
+//            switch (operator){
+//                case'+':
+//                    result = num1+num2;
+//                    break;
+//                case'-':
+//                    result = num1-num2;
+//                    break;
+//                case'*':
+//                    result = num1*num2;
+//                    break;
+//                case'/':
+//                    result = num1/num2;
+//                    break;
+//            }
+//            textfield.setText(String.valueOf(result));
+//            num1=result;
         }
 
         //clear button
@@ -188,5 +192,26 @@ public class Calculator implements ActionListener{
                 textfield.setText(textfield.getText()+string.charAt(i));
             }
         }
+    }
+
+    public void equals(double num1, double num2, double result, char operator){
+        num2 = Double.parseDouble(textfield.getText());
+
+        switch (operator){
+            case'+':
+                result = num1+num2;
+                break;
+            case'-':
+                result = num1-num2;
+                break;
+            case'*':
+                result = num1*num2;
+                break;
+            case'/':
+                result = num1/num2;
+                break;
+        }
+        textfield.setText(String.valueOf(result));
+        num1=result;
     }
 }
