@@ -14,7 +14,7 @@ public class Calculator implements ActionListener{
     Font myFont = new Font("Verdana", Font.BOLD, 30);
 
     double num1 = 0, num2=0, result=0;
-    char operator; //will hold operator character
+    char operator =' '; //will hold operator character
 
     Calculator(){
         //constructor
@@ -119,27 +119,43 @@ public class Calculator implements ActionListener{
         }
         //functionality for decimal button
         if(e.getSource()==decButton){
-            if(!textfield.getText().contains(".")){ //check if a decimal is already in the text field. 
+            if(!textfield.getText().contains(".")){ //check if a decimal is already in the text field.
                 textfield.setText(textfield.getText().concat("."));
             }
         }
         //functionality for operands!
         if(e.getSource()==addButton){
+            if (num2 != 0) { //if trying to add more than one number
+                equals(num1, num2, operator); //will set num1 to the result
+                num2 = num1;
+            }
             num1 = Double.parseDouble(textfield.getText());
             operator = '+';
             textfield.setText("");
         }
         if(e.getSource()==subButton){
+            if (num2 != 0) {
+                equals(num1, num2, operator);
+                num2 = num1;
+            }
             num1 = Double.parseDouble(textfield.getText());
             operator = '-';
             textfield.setText("");
         }
         if(e.getSource()==mulButton){
+            if (num2 != 0) {
+                equals(num1, num2, operator);
+                num2 = num1;
+            }
             num1 = Double.parseDouble(textfield.getText());
             operator = '*';
             textfield.setText("");
         }
         if(e.getSource()==divButton){
+            if (num2 != 0) {
+                equals(num1, num2, operator);
+                num2 = num1;
+            }
             num1 = Double.parseDouble(textfield.getText());
             operator = '/';
             textfield.setText("");
@@ -155,7 +171,11 @@ public class Calculator implements ActionListener{
         //equals button
         if(e.getSource()==equButton){
 
-            equals(num1, num2, result, operator);
+            equals(num1, num2,operator);
+            //num1=0;
+            num2=0;
+            operator=' ';
+            result = 0;
 //            num2 = Double.parseDouble(textfield.getText());
 //
 //            switch (operator){
@@ -181,6 +201,7 @@ public class Calculator implements ActionListener{
             num1 = 0;
             num2 = 0;
             result = 0;
+            operator = ' ';
             textfield.setText("");
         }
 
@@ -194,24 +215,36 @@ public class Calculator implements ActionListener{
         }
     }
 
-    public void equals(double num1, double num2, double result, char operator){
-        num2 = Double.parseDouble(textfield.getText());
+    public void equals(double num1, double num2, char operator){
+        if(Integer.parseInt(textfield.getText())==0){
+            textfield.setText("Error");
+            num1=0;
+            num2=0;
+            result=0;
+            operator=' ';
+        }else{
+            num2 = Double.parseDouble(textfield.getText());
 
-        switch (operator){
-            case'+':
-                result = num1+num2;
-                break;
-            case'-':
-                result = num1-num2;
-                break;
-            case'*':
-                result = num1*num2;
-                break;
-            case'/':
-                result = num1/num2;
-                break;
+            switch (operator){
+                case'+':
+                    result = num1+num2;
+                    break;
+                case'-':
+                    result = num1-num2;
+                    break;
+                case'*':
+                    result = num1*num2;
+                    break;
+                case'/':
+                    result = num1/num2;
+                    break;
+                case' ': //bug fix for inputting no operator
+                    result = num2;
+                    break;
+            }
+            textfield.setText(String.valueOf(result));
+            num1=result;
         }
-        textfield.setText(String.valueOf(result));
-        num1=result;
+
     }
 }
