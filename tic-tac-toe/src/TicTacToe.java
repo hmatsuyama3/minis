@@ -3,6 +3,7 @@ import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 
+
 public class TicTacToe implements ActionListener {
     Random random = new Random(); //use to determine who goes first randomly
     JFrame frame = new JFrame(); //frame for the game
@@ -11,6 +12,10 @@ public class TicTacToe implements ActionListener {
     JLabel textfield = new JLabel(); //label to display messages
     JButton[] buttons = new JButton[9]; //9 buttons for the game - it lives in an array.
     boolean player1_turn; //true if it is player 1's turn. false if it's not.
+
+    int numOfTurns = 0;
+    boolean isWinner;
+    boolean isTie; //check for a tie;
     TicTacToe(){
         //make the frame.
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,7 +71,11 @@ public class TicTacToe implements ActionListener {
                         buttons[i].setText("X"); //if no text, change it
                         player1_turn=false; //then flip the turn to the other player.
                         textfield.setText("O turn");
+                        numOfTurns++;
                         check(); //check to see if any winning conditions were met
+                        if(numOfTurns>8){
+                            tie();
+                        }
                     }
                 }else{                          //same thing, except it's player 2's turn.
                     if(buttons[i].getText()==""){
@@ -74,7 +83,11 @@ public class TicTacToe implements ActionListener {
                         buttons[i].setText("O");
                         player1_turn=true;
                         textfield.setText("X turn");
+                        numOfTurns++;
                         check();
+                        if(numOfTurns>8){
+                            tie();
+                        }
                     }
                 }
             }
@@ -181,10 +194,12 @@ public class TicTacToe implements ActionListener {
                 (buttons[6].getText()=="O")){
             oWins(2,4,6);
         }
+
     }
 
     public void xWins(int a, int b, int c){
     //called when conditions for x to win are met.
+        isWinner=true;
         //change winning button colors!
         buttons[a].setBackground(Color.GREEN);
         buttons[b].setBackground(Color.GREEN);
@@ -197,6 +212,7 @@ public class TicTacToe implements ActionListener {
     }
     public void oWins(int a, int b, int c){
     //called when conditions for o to win are met.
+        isWinner=true;
         buttons[a].setBackground(Color.GREEN);
         buttons[b].setBackground(Color.GREEN);
         buttons[c].setBackground(Color.GREEN);
@@ -205,5 +221,19 @@ public class TicTacToe implements ActionListener {
             buttons[i].setEnabled(false);
         }
         textfield.setText("O wins");
+    }
+
+    public void tie(){
+
+        //check for a tie
+        isTie=true;
+        for(int i=0; i<buttons.length; i++){
+            if(buttons[i].getText()==""){
+                isTie = false;
+            }
+        }
+        if(isTie){
+            textfield.setText("Tie");
+        }
     }
 }
