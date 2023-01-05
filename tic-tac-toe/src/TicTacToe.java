@@ -13,9 +13,10 @@ public class TicTacToe implements ActionListener {
     JButton[] buttons = new JButton[9]; //9 buttons for the game - it lives in an array.
     boolean player1_turn; //true if it is player 1's turn. false if it's not.
 
-    int numOfTurns = 0;
-    boolean isWinner;
+    int numOfTurns = 0; //counts number of turns
+    boolean isWinner; //keeps track of whether or not there is a winner
     boolean isTie; //check for a tie;
+
     TicTacToe(){
         //make the frame.
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -209,6 +210,14 @@ public class TicTacToe implements ActionListener {
             buttons[i].setEnabled(false);
         }
         textfield.setText("X wins"); //change title field to indicate winner
+
+        //restart game dialgue box
+        int input = JOptionPane.showConfirmDialog(null, "Restart?", "Title", JOptionPane.YES_OPTION);
+        if(input == JOptionPane.YES_OPTION){ //if user clicks "yes", restart the game
+            restartGame();
+        }else{
+            frame.dispose(); //otherwise, close the game and end the program
+        }
     }
     public void oWins(int a, int b, int c){
     //called when conditions for o to win are met.
@@ -221,6 +230,13 @@ public class TicTacToe implements ActionListener {
             buttons[i].setEnabled(false);
         }
         textfield.setText("O wins");
+
+        int input = JOptionPane.showConfirmDialog(null, "Restart?", "Title", JOptionPane.YES_OPTION);
+        if(input == JOptionPane.YES_OPTION){
+            restartGame();
+        }else{
+            frame.dispose();
+        }
     }
 
     public void tie(){
@@ -234,6 +250,26 @@ public class TicTacToe implements ActionListener {
         }
         if(isTie){
             textfield.setText("Tie");
+            int input = JOptionPane.showConfirmDialog(null, "Restart?", "Title", JOptionPane.YES_OPTION);
+            if(input == JOptionPane.YES_OPTION){
+                restartGame();
+            }else{
+                frame.dispose();
+            }
         }
+    }
+
+    public void restartGame(){ //method to restart the game
+        //reset variables
+        numOfTurns = 0;
+        isWinner = false;
+        isTie =false;
+        for(int i=0; i<9; i++){
+            buttons[i].setText("");
+            buttons[i].setBackground(new JButton().getBackground()); //get default background from a new button...lol
+            buttons[i].setEnabled(true); //make buttons usable again
+        }
+
+        firstTurn(); //call first turn to signal user to restart the game
     }
 }
