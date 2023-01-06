@@ -7,6 +7,7 @@ So far, I have: <br>
 -a tic tac toe game <br>
 -a basic calculator app <br>
 -a webpage that tells you the weather on the north pole <br>
+-a JS pong game (in progress)
 -???? <br>
 -profit(???)<br>
 
