@@ -9,7 +9,8 @@ So far, I have: <br>
 -a webpage that tells you the "weather" on the north pole<br>
 -a pong game (JS) <br>
 -a simple whack-a-mole game (JS) <br>
+-a simple breakout game (JS, in progress)<br>
 -???? <br>
 -profit(???)<br>
 
-Thanks for checking it out ☆
+Thanks for checking this out ☆
